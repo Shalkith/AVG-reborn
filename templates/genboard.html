@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+</style>
+
+<div class="text-center">
+  {% if current_user.is_authenticated %}
+<a class="button" href="post">New Post</a>
+{%endif%}
+
+ <div class="grid-container">
+  <div class="grid-head">Message area</div>
+  <div class="grid-head"># of posts</div>
+  <div class="grid-head">Last updated</div>
+  <div class="grid-item">General</div>
+  <div class="grid-item">0</div>
+  <div class="grid-item">-</div>
+
+
+<!--   <div class="grid-item">Feedback</div>
+  <div class="grid-item">0</div>
+  <div class="grid-item">-</div>
+-->
+</div>
+
+
+
+</div>
+{% endblock %}

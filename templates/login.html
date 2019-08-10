@@ -1,0 +1,31 @@
+{% if current_user.is_authenticated %}
+
+<meta http-equiv="Refresh" content="1; url=/">
+{% else %}
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<style>
+</style>
+
+<div class="text-center">
+
+</div>
+
+{% if message is defined %}
+<p class="bg-danger" style="color:black;">{{message}}</p>
+{% endif %}
+
+
+<div class="text-center">
+<form class="admin text-center" action='login' Method="POST">
+<br><br><br>
+Username: <input type='text' name='email' id='email' placeholder='Username'/><br><br>
+Password: <input type='password' name='password' id='password' placeholder='Password'/><br><br>
+<input value="Login" type='submit' name='submit'/><br><br><br>
+</form></div>
+
+
+{% endblock %}
+{% endif %}

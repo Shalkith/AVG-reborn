@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+</style>
+
+<div class="text-center">
+  {% if current_user.is_authenticated %}
+
+  <div class="text-center">
+  <form class="admin text-center" action='newpost' Method="POST">
+  <br><br><br>
+  <div class="grid-item">Subject: </div>
+  <div class="grid-item"><input type='text' class="sub" name='sub' id='sub' placeholder=''/></div>
+  <div class="grid-item"></div>
+  <div class="grid-item">Text:</div>
+  <div class="grid-item"><input type='text' class="body" name='body' id='password' placeholder=''/></div>
+  <div class="grid-item"></div>
+
+  <input value="Submit" class="button" type='submit' name='send'/>
+
+  </form></div>
+
+
+
+</div>
+
+{%else%}
+<meta http-equiv="Refresh" content="5; url=/">
+{%endif%}
+</div>
+{% endblock %}

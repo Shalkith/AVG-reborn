@@ -1,0 +1,165 @@
+body {background-color: #003756;}
+
+h1 {color:#C6E5FA;}
+
+body {color: #C6E5FA;}
+
+input.sub {
+  height: 15px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+
+input.body {
+	height: 150px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+
+.right {text-align: right;}
+
+.button {
+	text-align: right;
+  background-color: #006448; /* Green */
+  color: #C6E5FA;
+  padding: 5px 15px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+	border-radius: 8px;
+	border: 2px solid #006448;
+}
+
+.button:hover {
+  background-color: #007f59;
+  color: #C6E5FA;
+	text-decoration: none;
+	border: 2px solid #006448;
+}
+
+a{
+	color: #C6E5FA;
+  text-decoration: underline;  }
+
+a:hover {
+		text-decoration: underline;
+		color: #8AA0AF;}
+
+input {color: #000000;}
+
+
+
+.navbar-custom {
+	background-color:#006448;
+  color: #C6E5FA;
+  border-radius:0;
+}
+
+.navbar-default .navbar-brand {
+	color: #C6E5FA
+}
+
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:hover {
+	color: #8AA0AF;
+	background-color: transparent
+}
+
+.navbar-default .navbar-text {
+	color: #C6E5FA
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #C6E5FA
+}
+
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #003756;
+  border: 1px solid #C6E5FA;
+  padding: 1px;
+}
+
+.grid-head {
+  font-weight: bold;
+  background-color: #006448;
+  color: #C6E5FA;
+  border: 1px solid #003756;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.grid-item {
+  background-color: #006448;
+  color: #C6E5FA;
+  border: 1px solid #003756;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
+
+
+
+.grid-container-thread {
+  display: grid;
+  grid-template-columns: min-content auto min-content;
+  background-color: #003756;
+  border: 1px solid #C6E5FA;
+  padding: 1px;
+}
+
+.grid-head-thread {
+  font-weight: bold;
+  background-color: #006448;
+  color: #C6E5FA;
+  border: 1px solid #003756;
+  padding: 10px;
+  font-size: 20px;
+  text-align: center;
+}
+
+
+.grid-item-post {
+  background-color: #006448;
+  color: #C6E5FA;
+  border: 1px solid #003756;
+  padding: 10px;
+  font-size: 15px;
+  text-align: left;
+}
+
+.grid-item-thread2 {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: row1-start;
+  grid-row-end: 3;
+  background-color: #006448;
+  color: #C6E5FA;
+  border: 1px solid #003756;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
+.grid-item-thread3 {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: row1-start;
+  grid-row-end: 3;
+  background-color: #006448;
+  color: #C6E5FA;
+  border: 1px solid #003756;
+  padding: 10px;
+  font-size: 15px;
+  text-align: center;
+}
