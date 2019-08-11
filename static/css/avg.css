@@ -44,27 +44,11 @@ input.body {
 	border: 2px solid #006448;
 }
 
-a{
-	color: #C6E5FA;
-  text-decoration: underline;  }
-
-a:hover {
-		text-decoration: underline;
-		color: #8AA0AF;}
 
 input {color: #000000;}
 
 
 
-.navbar-custom {
-	background-color:#006448;
-  color: #C6E5FA;
-  border-radius:0;
-}
-
-.navbar-default .navbar-brand {
-	color: #C6E5FA
-}
 
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
@@ -73,10 +57,6 @@ input {color: #000000;}
 }
 
 .navbar-default .navbar-text {
-	color: #C6E5FA
-}
-
-.navbar-default .navbar-nav>li>a {
 	color: #C6E5FA
 }
 
@@ -91,24 +71,36 @@ input {color: #000000;}
 }
 
 .grid-head {
+  font-size:6vw;
   font-weight: bold;
   background-color: #006448;
   color: #C6E5FA;
   border: 1px solid #003756;
   padding: 10px;
-  font-size: 20px;
   text-align: center;
 }
 
+a.link {
+  color: #C6E5FA;
+  text-decoration: underline;
+}
+
+h3 {
+  font-size:8vw;
+}
+
 .grid-item {
+  font-size:4vw;
   background-color: #006448;
   color: #C6E5FA;
   border: 1px solid #003756;
   padding: 10px;
-  font-size: 15px;
   text-align: center;
 }
 
+.grid-subtext{
+  font-size:3vw;
+}
 
 
 .grid-container-thread {
@@ -128,8 +120,10 @@ input {color: #000000;}
   font-size: 20px;
   text-align: center;
 }
-
-
+.responsive {
+  width: 100%;
+  height: auto;
+}
 .grid-item-post {
   background-color: #006448;
   color: #C6E5FA;

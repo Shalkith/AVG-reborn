@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-         <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     <title>
       AVG-Reborn
    </title>
-   <link rel="stylesheet" href="static/css/bootstrap.min.css">
-   <link rel="stylesheet" href="static/css/mainpage.css">
-   <link rel="stylesheet" href="/ag/static/css/bootstrap.min.css">
-   <link rel="stylesheet" href="/ag/static/css/mainpage.css">
-
-
-        <link rel="stylesheet" href="static/css/avg.css">
-        <link rel="stylesheet" href="/ag/static/css/avg.css">
-      </head>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/mainpage.css">
+        <link rel="stylesheet" href="/static/css/avg.css">
+  </head>
   <body>
 
       {% include 'includes/_navbar.html' %}
-      <div class="container text-center"><br><br><br><img src="/ag/static/images/AGBanner.gif"><br><br><br>
+      <div class="container text-center"><br><br><br><img class="responsive" src="/static/images/AGBanner.gif"><br><br><br>
       {% block body %}{% endblock %}
     </div>
 
-    <script src="static/js/jquery.min.js"></script>
-  <script src="/ag/static/js/jquery.min.js"></script>
-</body>
+      <script src="/static/js/jquery.min.js"></script>
+      <script src="/static/js/bootstrap.min.js"></script>
+  </body>
 </html>

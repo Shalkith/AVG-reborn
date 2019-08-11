@@ -1,4 +1,4 @@
-<nav class="navbar-custom navbar navbar-default navbar-fixed-top">
+<nav class="navbar-custom navbar navbar-inverse navbar-fixed-top">
  <div class="container-fluid">
    <div class="navbar-header">
      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -6,20 +6,20 @@
        <span class="icon-bar"></span>
        <span class="icon-bar"></span>
      </button>
-     <a class="navbar-brand" href="home">AVG-Reborn</a>
+     <a class="navbar-brand" href="/home">AVG-Reborn</a>
    </div>
    <div class="collapse navbar-collapse" id="myNavbar">
      <ul class="nav navbar-nav">
-       <li><a href="home">Home</a></li>
+       <li><a href="/home">Home</a></li>
        <!-- <li><a href="anotherurl">url2</a></li> -->
-       <li><a href="about">About us</a></li>
+       <li><a href="/about">About us</a></li>
      </ul>
      <ul class="nav navbar-nav navbar-right">
       {% if current_user.is_authenticated %}
 
-        <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> Signout {{ current_user.id }}</a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Signout {{ current_user.id }}</a></li>
       {% else %}
-        <li><a href="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       {% endif %}
     </ul>
    </div>
