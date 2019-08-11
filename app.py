@@ -217,6 +217,12 @@ def home():
     var = dbcheck('select * from posts where parentsite="0" and parentthread="0"')
     return render_template('home.html', data = var)
 
+@app.route('/home')
+def home2():
+    return redirect(url_for('home'))
+
+
+
 @app.route('/post')
 def newpost():
     return render_template('newpost.html')
