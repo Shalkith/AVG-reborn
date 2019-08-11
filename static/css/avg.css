@@ -64,14 +64,23 @@ input {color: #000000;}
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   background-color: #003756;
   border: 1px solid #C6E5FA;
   padding: 1px;
 }
 
+.grid-container-main {
+  display: grid;
+  grid-template-columns: auto;
+  background-color: #003756;
+  border: 1px solid #C6E5FA;
+  padding: 1px;
+}
+
+
 .grid-head {
-  font-size:6vw;
+  font-size:1.2em;
   font-weight: bold;
   background-color: #006448;
   color: #C6E5FA;
@@ -86,11 +95,11 @@ a.link {
 }
 
 h3 {
-  font-size:8vw;
+  font-size:1.5em;
 }
 
 .grid-item {
-  font-size:4vw;
+  font-size:1em;
   background-color: #006448;
   color: #C6E5FA;
   border: 1px solid #003756;
@@ -99,7 +108,7 @@ h3 {
 }
 
 .grid-subtext{
-  font-size:3vw;
+  font-size:.8em;
 }
 
 
