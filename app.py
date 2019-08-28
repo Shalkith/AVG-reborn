@@ -121,7 +121,7 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return 'Signup is not ready yet. Please contact me on Twitter for a temp account'
+    return '<link rel="stylesheet" href="/static/css/avg.css">Signup is not ready yet. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> for a temp account'
     if request.method == 'GET':
         return render_template('signup.html')
     username = request.form['email']
