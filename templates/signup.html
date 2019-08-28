@@ -1,0 +1,35 @@
+{% if current_user.is_authenticated %}
+
+<meta http-equiv="Refresh" content="1; url=/">
+{% else %}
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<style>
+</style>
+
+<div class="text-center">
+
+</div>
+
+{% if message is defined %}
+<p class="bg-warning">{{message}}</p>
+{% endif %}
+
+<div class="text-center">
+<form class="admin text-center" action='signup' Method="POST">
+<br><br><br>
+Username: <input type='text' name='email' id='email' placeholder='Username'/ required><br><br>
+
+Site Name: <input type='text' name='sitename' id='sitename' placeholder=''/ required><br><br>
+Site Description: <input type='text' name='description' id='description' placeholder=''/ required><br><br>
+Short URL: <input type='text' name='url' id='url' placeholder=''/ required><br><br>
+Numbers and letters only
+<br>
+<input value="Signup" type='submit' name='submit'/><br><br><br>
+</form></div>
+
+
+{% endblock %}
+{% endif %}

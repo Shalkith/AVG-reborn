@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request,redirect, url_for
 import string
 import os
-from scripts import creds, auther
+from scripts import creds, auther, create_account
 from datetime import datetime
 import flask_login
 
@@ -49,19 +49,23 @@ class User(flask_login.UserMixin):
 
 @login_manager.user_loader
 def user_loader(email):
-    user = User()
-    print('attempting to confirm',email,'is authed')
+    try:
 
-    reauthdata = auther.verifyuser(email,'password')
-    print('Reauth',reauthdata)
-    user.id = reauthdata[1]
-    user.uniqueid = reauthdata[0]
-    user.role = reauthdata[2]
-    user.displayname = reauthdata[3]
-    user.uniqueidhash = reauthdata[4]
-    user.parentsite = reauthdata[5]
+        user = User()
+        print('attempting to confirm',email,'is authed')
 
-    return user
+        reauthdata = auther.verifyuser(email,'password')
+        print('Reauth',reauthdata)
+        user.id = reauthdata[1]
+        user.uniqueid = reauthdata[0]
+        user.role = reauthdata[2]
+        user.displayname = reauthdata[3]
+        user.uniqueidhash = reauthdata[4]
+        user.parentsite = reauthdata[5]
+
+        return user
+    except:
+        pass
 
 @login_manager.request_loader
 def request_loader(request):
@@ -112,6 +116,20 @@ def login():
         print(e)
         pass
     return render_template('login.html',message="Unauthorized. Bad Username or Password.")
+
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'GET':
+        return render_template('signup.html')
+    username = request.form['email']
+    sitename = request.form['sitename']
+    description = request.form['description']
+    url = request.form['url']
+    created,message = create_account.create(username,url,description,sitename)
+    return render_template('signup.html',message=message)
+
 
 
 

@@ -75,7 +75,7 @@ def verifyuser(email,password):
     return '','','','','','',False
 
 
-def generate_mysql_hash(username,password):
-    mysql_hash = '*' + sha1(sha1(password.encode('utf-8')).digest()).hexdigest()
+def generate_mysql_hash(username,passw):
+    mysql_hash = '*' + sha1(sha1(passw.encode('utf-8')).digest()).hexdigest()
 
     return username,mysql_hash
