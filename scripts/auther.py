@@ -23,6 +23,7 @@ def confirm_poster(username,hashid,unid):
     return validuser
 
 def verifyuser(email,password):
+    email = email.lower()
     import mysql.connector
     #MySQL details. same for all scripts
 
