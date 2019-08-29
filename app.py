@@ -74,7 +74,7 @@ def request_loader(request):
     if email == None:
         pass
     else:
-        authdata = auther.verifyuser(email.lower(),password)
+        authdata = auther.verifyuser(email,password)
     if email == None or authdata[6] !=True:
         return
     user = User()
