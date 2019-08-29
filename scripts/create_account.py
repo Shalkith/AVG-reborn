@@ -51,6 +51,7 @@ def create(username,url,desc,sitename):
 
     print('print: ',userexists,message)
     if userexists == True:
+        print('should exit now with message:',message)
         return False,message
     else:
         print('generating password')

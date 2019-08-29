@@ -121,7 +121,7 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    return '<link rel="stylesheet" href="/static/css/avg.css">Signup is not ready yet. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> for a temp account'
+    #return '<link rel="stylesheet" href="/static/css/avg.css">Signup is not ready yet. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> for a temp account'
     if request.method == 'GET':
         return render_template('signup.html')
     username = request.form['email']
@@ -129,7 +129,12 @@ def signup():
     description = request.form['description']
     url = request.form['url']
     created,message = create_account.create(username,url,description,sitename)
-    return render_template('signup.html',message=message)
+    if created == True:
+        return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Success: '+message+'</p>'
+    else:
+        return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Error: '+message+'</p>'
+
+    #return render_template('message.html',message=message)
 
 
 
