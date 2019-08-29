@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+</style>
+<div class="grid-container">
+ <div class="grid-head">Site Name</div>
+ <div class="grid-head">Site Description</div>
+{%for site in sites%}
+
+<div class="grid-item"><a href="/{{site[1]}}">{{site[2]}}</a></div>
+<div class="grid-item">{{site[3]}}</div>
+
+{%endfor%}
+</div>
+<div class="text-center">
+
+ <div class="grid-container-main">
+  <div class="grid-head">Message area</div>
+</div>
+
+
+
+</div>
+{% endblock %}

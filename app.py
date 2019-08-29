@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request,redirect, url_for
 import string
 import os
-from scripts import creds, auther, create_account
+from scripts import creds, auther, create_account, sitelookup
 from datetime import datetime
 import flask_login
 
@@ -130,9 +130,9 @@ def signup():
     url = request.form['url']
     created,message = create_account.create(username,url,description,sitename)
     if created == True:
-        return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Success: '+message+'</p>'
+        return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Success: '+message+'</p><br><a class="button" href="/">Return Home</a>'
     else:
-        return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Error: '+message+'</p>'
+        return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Error: '+message+'</p><br><a class="button" href="/">Return Home</a>'
 
     #return render_template('message.html',message=message)
 
@@ -153,6 +153,21 @@ def unauthorized_handler():
 
 ###############
 
+
+@app.route('/directory', methods=['GET','POST'])
+def sitedir():
+    list = sitelookup.site_dir()
+    return render_template('sitedir.html',sites = list)
+
+
+
+@app.route('/<variable>', methods=['GET','POST'])
+def site(variable):
+    validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable)
+    if validuser == True:
+        return render_template('usersite.html',sitename=name,sitedesc=desc,siteadmin=admin)
+    else:
+        return '<link rel="stylesheet" href="/static/css/avg.css">Invalid site. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> if you think this is in error<br><br><a class="button" href="/">Return Home</a>'
 
 @app.route('/posts/<variable>', methods=['GET','POST'])
 def posts(variable):
