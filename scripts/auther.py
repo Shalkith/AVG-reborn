@@ -42,7 +42,7 @@ def verifyuser(email,password):
     validuser  = False
 
     for x in cursor:
-        if x[1] == email and x[7] != 0:
+        if x[1].lower() == email and x[7] != 0:
             #print('valid user')
             validuser = True
             id,username,role,displayname,useremail,parentsite,active = x[0],x[1],x[3],x[4],x[5],x[6],x[7]
