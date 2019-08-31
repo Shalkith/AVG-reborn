@@ -72,14 +72,10 @@ def create(username,url,desc,sitename):
             print(x[0])
             userid = x[0]
         createsite = 'insert into sites values(0,"'+url+'","'+sitename+'","'+desc+'","'+str(userid)+'")'
-        print()
-        print()
-        print()
-        print(createsite)
-        print()
-        print()
-        print()
+        createboard = 'insert into posts values(0,"'+url+'","'+sitename+'","'+desc+'","0","NULL","NULL","NULL","board")'
+
         cursor.execute(createsite)
+        cursor.execute(createboard)
         cnx.commit()
         message = 'Site Created! Your password is: '+passw
         print(message)
