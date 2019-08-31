@@ -11,6 +11,7 @@ import flask_login
 import mysql.connector
 
 def dbcheck(query):
+    #query = query.split(';')[0]
     # Connect to server
     cnx = mysql.connector.connect(
         host=creds.mysqlhost,
@@ -128,7 +129,9 @@ def signup():
     sitename = request.form['sitename']
     description = request.form['description']
     url = request.form['url']
-    created,message = create_account.create(username,url,description,sitename)
+    import re
+    #created,message = create_account.create(username,url,description,sitename)
+    created,message = create_account.create(re.escape(username),re.escape(url),re.escape(description),re.escape(sitename))
     if created == True:
         return '<link rel="stylesheet" href="/static/css/avg.css"><h1><p class="bg-success">Success: '+message+'</p><br><a class="button" href="/">Return Home</a>'
     else:
@@ -152,22 +155,96 @@ def unauthorized_handler():
 
 
 ###############
+# importing user routes
+
+@app.route('/<variable1>', methods=['GET','POST'])
+def site(variable1):
+
+    validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable1)
+    var = dbcheck('select * from posts where parentsite="'+variable1+'" and parentthread="0"')
+
+    if validuser == True:
+        return render_template('usersite.html',sitename=name,sitedesc=desc,siteadmin=admin,sn=variable1,data=var)
+    else:
+        return '<link rel="stylesheet" href="/static/css/avg.css">Invalid site. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> if you think this is in error<br><br><a class="button" href="/">Return Home</a>'
+
+@app.route('/<variable1>/posts/<variable>', methods=['GET','POST'])
+def siteposts(variable1,variable):
+    if request.method == 'POST':
+        postdata = request.values
+        postdata = postdata.to_dict()
+        now = str(datetime.now()).split('.')[0][:-3]
+
+        validusercheck = auther.confirm_poster(postdata['username'],postdata['unHa'],postdata['unId'])
+        print('validusercheck', validusercheck)
+        import re
+        body = re.escape(postdata['postbody'])
+        subject = re.escape(postdata['postsubject'])
+        un = re.escape(postdata['username'])
+        if validusercheck == True:
+            dbcheck('insert into posts (parentsite,subject,body,parentthread,postedby,lastupdate,createddate,type) values ("'+variable1+'","'+subject+'","'+body+'","'+variable+'","'+un+'","'+now+'","'+now+'","post")')
+            board = dbcheck('select * from posts where parentsite ="'+variable1+'" and id="'+variable+'"')
+            posts = dbcheck('select * from posts where parentsite="'+variable1+'" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
+            print(posts)
+            #do your code here
+            return render_template("posts.html",data=posts, board=board,sn=variable1)
+        else:
+            board = dbcheck('select * from posts where parentsite ="'+variable1+'" and id="'+variable+'"')
+            posts = dbcheck('select * from posts where parentsite="'+variable1+'" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
+
+            return render_template("posts.html",data=posts, board=board,sn=variable1, message = 'somthing went wrong. please try again...')
+
+    else:
+
+        board = dbcheck('select * from posts where parentsite ="'+variable1+'" and id="'+variable+'"')
+        posts = dbcheck('select * from posts where parentsite="'+variable1+'" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
+        print(posts)
+        #do your code here
+        return render_template("posts.html",data=posts, board=board,sn=variable1)
+
+@app.route('/<variable1>/thread/<variable>', methods=['GET','POST'])
+def sitethread(variable1,variable):
+    if request.method == 'POST':
+        postdata = request.values
+        postdata = postdata.to_dict()
+        now = str(datetime.now()).split('.')[0][:-3]
+        validusercheck = auther.confirm_poster(postdata['username'],postdata['unHa'],postdata['unId'])
+        import re
+        reply = re.escape(postdata['postreply'])
+        if validusercheck == True:
+            dbcheck('insert into posts (parentsite,subject,body,parentthread,postedby,lastupdate,createddate,type) values ("'+variable1+'","NULL","'+reply+'","'+variable+'","'+postdata['username']+'","'+now+'","'+now+'","reply")')
+            dbcheck('update posts set lastupdate = "'+now+'" where id ="'+variable+'"')
+            threads = dbcheck('select * from posts where parentsite = "'+variable1+'" and id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
+            board = dbcheck('select * from posts where parentsite="'+variable1+'" and id="'+variable+'"')
+        #print(posts)
+        #do your code here
+            return render_template("thread.html",data=threads, board=board,sn=variable1)
+        else:
+            threads = dbcheck('select * from posts where parentsite = "'+variable1+'" and id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
+            board = dbcheck('select * from posts where parentsite="'+variable1+'" and id="'+variable+'"')
+            #print(posts)
+            #do your code here
+            return render_template("thread.html",data=threads, board=board,sn=variable1,message = 'somthing went wrong. please try again...')
 
 
+
+    else:
+
+        threads = dbcheck('select * from posts where parentsite = "'+variable1+'" and id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
+        board = dbcheck('select * from posts where parentsite="'+variable1+'" and id="'+variable+'"')
+        #print(posts)
+        #do your code here
+        return render_template("thread.html",data=threads, board=board,sn=variable1)
+
+
+
+
+##############
 @app.route('/directory', methods=['GET','POST'])
 def sitedir():
     list = sitelookup.site_dir()
     return render_template('sitedir.html',sites = list)
 
-
-
-@app.route('/<variable>', methods=['GET','POST'])
-def site(variable):
-    validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable)
-    if validuser == True:
-        return render_template('usersite.html',sitename=name,sitedesc=desc,siteadmin=admin)
-    else:
-        return '<link rel="stylesheet" href="/static/css/avg.css">Invalid site. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> if you think this is in error<br><br><a class="button" href="/">Return Home</a>'
 
 @app.route('/posts/<variable>', methods=['GET','POST'])
 def posts(variable):
@@ -178,10 +255,12 @@ def posts(variable):
 
         validusercheck = auther.confirm_poster(postdata['username'],postdata['unHa'],postdata['unId'])
         print('validusercheck', validusercheck)
+        import re
+        body = re.escape(postdata['postbody'])
+        subject = re.escape(postdata['postsubject'])
+        un = re.escape(postdata['username'])
         if validusercheck == True:
-            dbcheck('insert into posts (parentsite,subject,body,parentthread,postedby,lastupdate,createddate,type) values ("0","'+postdata['postsubject']+'","'+postdata['postbody']+'","'+variable+'","'+postdata['username']+'","'+now+'","'+now+'","post")')
-
-
+            dbcheck('insert into posts (parentsite,subject,body,parentthread,postedby,lastupdate,createddate,type) values ("0","'+subject+'","'+body+'","'+variable+'","'+un+'","'+now+'","'+now+'","post")')
             board = dbcheck('select * from posts where id="'+variable+'"')
             posts = dbcheck('select * from posts where parentsite="0" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
             print(posts)
@@ -207,19 +286,31 @@ def thread(variable):
         postdata = request.values
         postdata = postdata.to_dict()
         now = str(datetime.now()).split('.')[0][:-3]
-        dbcheck('insert into posts (parentsite,subject,body,parentthread,postedby,lastupdate,createddate,type) values ("0","NULL","'+postdata['postreply']+'","'+variable+'","admin","'+now+'","'+now+'","reply")')
-        dbcheck('update posts set lastupdate = "'+now+'" where id ="'+variable+'"')
-        threads = dbcheck('select * from posts where id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
-        board = dbcheck('select * from posts where id="'+variable+'"')
-        print(posts)
+        validusercheck = auther.confirm_poster(postdata['username'],postdata['unHa'],postdata['unId'])
+        import re
+        reply = re.escape(postdata['postreply'])
+        if validusercheck == True:
+            dbcheck('insert into posts (parentsite,subject,body,parentthread,postedby,lastupdate,createddate,type) values ("0","NULL","'+reply+'","'+variable+'","'+postdata['username']+'","'+now+'","'+now+'","reply")')
+            dbcheck('update posts set lastupdate = "'+now+'" where id ="'+variable+'"')
+            threads = dbcheck('select * from posts where id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
+            board = dbcheck('select * from posts where id="'+variable+'"')
+        #print(posts)
         #do your code here
-        return render_template("thread.html",data=threads, board=board)
+            return render_template("thread.html",data=threads, board=board)
+        else:
+            threads = dbcheck('select * from posts where id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
+            board = dbcheck('select * from posts where id="'+variable+'"')
+            #print(posts)
+            #do your code here
+            return render_template("thread.html",data=threads, board=board,message = 'somthing went wrong. please try again...')
+
+
 
     else:
 
         threads = dbcheck('select * from posts where id="'+variable+'" or (parentthread="'+variable+'" and type = "reply")')
         board = dbcheck('select * from posts where id="'+variable+'"')
-        print(posts)
+        #print(posts)
         #do your code here
         return render_template("thread.html",data=threads, board=board)
 
