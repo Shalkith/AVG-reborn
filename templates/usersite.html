@@ -22,6 +22,12 @@ This part of the project is still a work in progress and an admin section will b
 
  <div class="grid-container-main">
   <div class="grid-head">Message area</div>
+  {%for x in data%}
+  <div class="grid-item"><a class="link" href="{{sn}}/posts/{{x[0]}}">{{x[2]}}</a><br><p class="grid-subtext">{{x[3]}}</p></div>
+<!--  <div class="grid-item">0</div>
+  <div class="grid-item">-</div>
+-->
+  {%endfor%}
 </div>
 
 
