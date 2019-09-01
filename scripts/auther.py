@@ -34,6 +34,19 @@ def create_role(sort,rolename,isadmin,isactive,url):
     cnx.commit()
 
 
+def edituser(username,role,isactive,url):
+    import mysql.connector
+    u = creds.mysqlun # MySQL username
+    p = creds.mysqlpw # MySQL password
+    h = creds.mysqlhost # MySQL server
+    db = 'avidgamers' # MySQL datanase name
+    cnx = mysql.connector.connect(user=u, password=p,host=h,database=db)
+    cursor = cnx.cursor(buffered=True)
+    query = ("update siteusers set role='"+role+"',active='"+isactive+"'where  user = '"+username+"' and parentsite = '"+url+"'")
+    cursor.execute(query)
+    cnx.commit()
+
+
 
 def lookup_roles(url):
     import mysql.connector
@@ -50,6 +63,24 @@ def lookup_roles(url):
     for x in cursor:
         roles.append(x)
     return roles
+
+
+
+def lookup_users(url):
+    import mysql.connector
+    u = creds.mysqlun # MySQL username
+    p = creds.mysqlpw # MySQL password
+    h = creds.mysqlhost # MySQL server
+    db = 'avidgamers' # MySQL datanase name
+    cnx = mysql.connector.connect(user=u, password=p,host=h,database=db)
+    cursor = cnx.cursor(buffered=True)
+    query = ("select * from siteusers where parentsite = '"+url+"' order by user")
+    cursor.execute(query)
+    validuser  = False
+    users = []
+    for x in cursor:
+        users.append(x)
+    return users
 
 
 

@@ -157,9 +157,34 @@ def unauthorized_handler():
 ###############
 # user routes
 
+@app.route('/<variable1>/manageusers', methods=['GET','POST'])
+def manageusers(variable1):
+    if request.method == 'POST':
+        postdata = request.values
+        postdata = postdata.to_dict()
+        import re
+
+        user_name = re.escape(postdata['username'])
+        role = re.escape(postdata['role'])
+        isactive = re.escape(postdata['active'])
+        auther.edituser(user_name,role,isactive,variable1)
+
+
+
+    validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable1)
+
+    if validuser == True:
+        roledata = auther.lookup_roles(variable1)
+        userdata = auther.lookup_users(variable1)
+        return render_template('usersites/usermanager.html',sitename=name,sitedesc=desc,siteadmin=admin,sn=variable1,data=roledata,userdata=userdata)
+    else:
+        return '<link rel="stylesheet" href="/static/css/avg.css">Invalid site. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> if you think this is in error<br><br><a class="button" href="/">Return Home</a>'
+
+
+
 
 @app.route('/<variable1>/manageroles', methods=['GET','POST'])
-def manageusers(variable1):
+def manageroles(variable1):
     if request.method == 'POST':
         postdata = request.values
         postdata = postdata.to_dict()
@@ -177,8 +202,9 @@ def manageusers(variable1):
     validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable1)
 
     if validuser == True:
-        data = auther.lookup_roles(variable1)
-        return render_template('usersites/rolemanager.html',sitename=name,sitedesc=desc,siteadmin=admin,sn=variable1,data=data)
+        roledata = auther.lookup_roles(variable1)
+        userdata = auther.lookup_users(variable1)
+        return render_template('usersites/rolemanager.html',sitename=name,sitedesc=desc,siteadmin=admin,sn=variable1,data=roledata,userdata=userdata)
     else:
         return '<link rel="stylesheet" href="/static/css/avg.css">Invalid site. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> if you think this is in error<br><br><a class="button" href="/">Return Home</a>'
 

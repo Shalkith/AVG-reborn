@@ -73,8 +73,8 @@ def create(username,url,desc,sitename):
             userid = x[0]
         createsite = 'insert into sites values(0,"'+url+'","'+sitename+'","'+desc+'","'+str(userid)+'")'
         createboard = 'insert into posts values(0,"'+url+'","'+sitename+'","'+desc+'","0","NULL","NULL","NULL","board")'
-        createadminrole = "insert into siteroles (rolename,is_admin,active,url,sort) values ('Site Admin','True','True',"+url+",0)"
-        createuserole = "insert into siteroles (rolename,is_admin,active,url,sort) values ('User','False','True',"+url+",10)"
+        createadminrole = "insert into siteroles (rolename,is_admin,active,url,sort) values ('Site Admin','True','True','"+url+"',0)"
+        createuserole = "insert into siteroles (rolename,is_admin,active,url,sort) values ('User','False','True','"+url+"',10)"
 
 
 
@@ -83,6 +83,20 @@ def create(username,url,desc,sitename):
         cursor.execute(createadminrole)
         cursor.execute(createuserole)
         cnx.commit()
+
+        adminrole_lookup = "select id from siteroles where url = '"+url+"' and rolename = 'Site Admin'"
+        cursor.execute(adminrole_lookup)
+        for x in cursor:
+            print(x[0])
+            roleid = x[0]
+        addadminuser = "insert into siteusers (user,role,active,parentsite) values ('"+username+"','"+str(roleid)+"','True','"+url+"')"
+        cursor.execute(addadminuser)
+        cnx.commit()
+
+
+
+
+
         message = 'Site Created! Your password is: '+passw
         print(message)
         return True,message

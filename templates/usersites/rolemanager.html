@@ -1,23 +1,66 @@
 {% extends 'layout.html' %}
 {% block body %}
 
+
 <center>
+
+  <table border=1>
+    <tr>
+      Create New Role:
+      <th class="text-center">Sort</th>
+      <th class="text-center">Role Name</th>
+      <th class="text-center">Is Admin</th>
+      <th class="text-center">Active</th>
+      <tr>
+      <div class="text-center">
+      <form class="admin text-center" action='manageroles' Method="POST">
+        <td><input type='number' min="0" max="9999" name='sort' id='sort' placeholder=''/ required></td>
+        <td><input type='text' name='rolename' id='rolename' placeholder=''/ required></td>
+
+
+        <td>
+        <select name="isadmin">
+            <option class="admin text-center text-dark" value="True">True</option>
+            <option class="admin text-center text-dark" value="False" selected>False</option>
+        </select>
+        </td>
+
+        <td>
+        <select  class="admin text-center text-dark" name="active">
+            <option class="admin text-center text-dark" value="True" selected>True</option>
+            <option class="admin text-center text-dark" value="False">False</option>
+        </select>
+        </td>
+
+
+        <td><input value="Create Role" type='submit' name='submit'/></td>
+      </form></div>
+
+      </tr>
+
+      </table>
+
+
+
+<br><br><br>
 <table border=1>
   <tr>
-    <th>Sort</th>
-    <th>Role Name</th>
-    <th>Is Admin</th>
-    <th>Active</th>
+    Edit Roles:
+    <th class="text-center">Sort</th>
+    <th class="text-center">Role Name</th>
+    <th class="text-center">Is Admin</th>
+    <th class="text-center">Active</th>
+    <th class="text-center">Active users with this Role</th>
   </tr>
 {% for x in data %}
 <tr>
 <div class="text-center">
 <form class="admin text-center" action='manageroles' Method="POST">
-  <td><input type='number' min="0" max="9999" name='sort' id='sort' value='{{x[4]}}'/ required></td>
-  <td><input type='text' name='rolename' id='rolename' value='{{x[0]}}'/ readonly></td>
+  <td><input type='number' min="0" max="9999" name='sort' id='sort' value='{{x[5]}}'/ required></td>
+  <td><input type='text' name='rolename' id='rolename' value='{{x[1]}}'/ readonly></td>
   <td>
   <select name="isadmin">
-    {% if x[1] == "False" %}
+    {% if x[2] == "False" %}
       <option class="admin text-center text-dark" value="True">True</option>
       <option class="admin text-center text-dark" value="False" selected>False</option>
     {% else %}
@@ -29,7 +72,7 @@
 
   <td>
   <select  class="admin text-center text-dark" name="active">
-    {% if x[2] == "False" %}
+    {% if x[3] == "False" %}
       <option class="admin text-center text-dark" value="True">True</option>
       <option class="admin text-center text-dark" value="False" selected>False</option>
     {% else %}
@@ -38,7 +81,9 @@
   {% endif %}
   </select>
   </td>
-
+<td class="text-center">
+--
+</td>
 
   <td><input value="Submit Change" type='submit' name='submit'/></td>
 </form></div>
@@ -49,41 +94,6 @@
 
 </table>
 <br><br><br>
-
-<table border=1>
-  <tr>
-    <th>Sort</th>
-    <th>Role Name</th>
-    <th>Is Admin</th>
-    <th>Active</th>
-    <tr>
-    <div class="text-center">
-    <form class="admin text-center" action='manageroles' Method="POST">
-      <td><input type='number' min="0" max="9999" name='sort' id='sort' placeholder=''/ required></td>
-      <td><input type='text' name='rolename' id='rolename' placeholder=''/ required></td>
-
-
-      <td>
-      <select name="isadmin">
-          <option class="admin text-center text-dark" value="True">True</option>
-          <option class="admin text-center text-dark" value="False" selected>False</option>
-      </select>
-      </td>
-
-      <td>
-      <select  class="admin text-center text-dark" name="active">
-          <option class="admin text-center text-dark" value="True" selected>True</option>
-          <option class="admin text-center text-dark" value="False">False</option>
-      </select>
-      </td>
-
-
-      <td><input value="Create Role" type='submit' name='submit'/></td>
-    </form></div>
-
-    </tr>
-
-    </table>
 
 
 

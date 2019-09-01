@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+
+<center>
+<table border=1>
+  <tr> Edit users:
+    <th class="text-center">Username</th>
+    <th class="text-center">Role</th>
+    <th class="text-center">Active</th>
+  </tr>
+{% for x in userdata %}
+
+<tr>
+<div class="text-center">
+<form class="admin text-center" action='manageusers' Method="POST">
+  <td><input type='text' name='username' id='username' value='{{x[0]}}'/ readonly></td>
+
+
+  <td>
+  <select  class="admin text-center text-dark" name="role">
+    {% for y in data %}
+      {% if y[0]|string == x[1] %}
+        <option class="admin text-center text-dark" value="{{y[0]}}" selected>{{y[1]}}</option>
+      {% else %}
+        <option class="admin text-center text-dark" value="{{y[0]}}">{{y[1]}}</option>
+      {% endif %}
+    {% endfor %}
+  </select>
+  </td>
+
+
+
+
+
+  <td>
+  <select  class="admin text-center text-dark" name="active">
+    {% if x[2] == "False" %}
+      <option class="admin text-center text-dark" value="True">True</option>
+      <option class="admin text-center text-dark" value="False" selected>False</option>
+    {% else %}
+      <option class="admin text-center text-dark" value="True" selected>True</option>
+      <option class="admin text-center text-dark" value="False">False</option>
+  {% endif %}
+  </select>
+  </td>
+<td class="text-center">
+--
+</td>
+
+  <td><input value="Submit Change" type='submit' name='submit'/></td>
+</form></div>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+
+</center>
+{% endblock %}
