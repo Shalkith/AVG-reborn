@@ -80,6 +80,8 @@ def create(username,url,desc,sitename):
 
         cursor.execute(createsite)
         cursor.execute(createboard)
+        cursor.execute(createadminrole)
+        cursor.execute(createuserole)
         cnx.commit()
         message = 'Site Created! Your password is: '+passw
         print(message)
