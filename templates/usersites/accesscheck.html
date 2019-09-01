@@ -1,0 +1,8 @@
+{% if current_user.is_authenticated %}
+{% if siteadmin|string() == current_user.uniqueid|string()%}
+{% set admin = True %}
+{% include 'usersites/adminlinks.html' %}
+{% else %}
+{% set admin = False %}
+{% endif %}
+{% endif %}

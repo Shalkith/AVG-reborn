@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<center>
+<table border=1>
+  <tr>
+    <th>Sort</th>
+    <th>Role Name</th>
+    <th>Is Admin</th>
+    <th>Active</th>
+  </tr>
+{% for x in data %}
+<tr>
+<div class="text-center">
+<form class="admin text-center" action='manageroles' Method="POST">
+  <td><input type='number' min="0" max="9999" name='sort' id='sort' value='{{x[4]}}'/ required></td>
+  <td><input type='text' name='rolename' id='rolename' value='{{x[0]}}'/ readonly></td>
+  <td>
+  <select name="isadmin">
+    {% if x[1] == "False" %}
+      <option class="admin text-center text-dark" value="True">True</option>
+      <option class="admin text-center text-dark" value="False" selected>False</option>
+    {% else %}
+      <option class="admin text-center text-dark" value="True" selected>True</option>
+      <option class="admin text-center text-dark"  onload=""value="False">False</option>
+  {% endif %}
+  </select>
+  </td>
+
+  <td>
+  <select  class="admin text-center text-dark" name="active">
+    {% if x[2] == "False" %}
+      <option class="admin text-center text-dark" value="True">True</option>
+      <option class="admin text-center text-dark" value="False" selected>False</option>
+    {% else %}
+      <option class="admin text-center text-dark" value="True" selected>True</option>
+      <option class="admin text-center text-dark" value="False">False</option>
+  {% endif %}
+  </select>
+  </td>
+
+
+  <td><input value="Submit Change" type='submit' name='submit'/></td>
+</form></div>
+
+</tr>
+
+{% endfor %}
+
+</table>
+<br><br><br>
+
+<table border=1>
+  <tr>
+    <th>Sort</th>
+    <th>Role Name</th>
+    <th>Is Admin</th>
+    <th>Active</th>
+    <tr>
+    <div class="text-center">
+    <form class="admin text-center" action='manageroles' Method="POST">
+      <td><input type='number' min="0" max="9999" name='sort' id='sort' placeholder=''/ required></td>
+      <td><input type='text' name='rolename' id='rolename' placeholder=''/ required></td>
+
+
+      <td>
+      <select name="isadmin">
+          <option class="admin text-center text-dark" value="True">True</option>
+          <option class="admin text-center text-dark" value="False" selected>False</option>
+      </select>
+      </td>
+
+      <td>
+      <select  class="admin text-center text-dark" name="active">
+          <option class="admin text-center text-dark" value="True" selected>True</option>
+          <option class="admin text-center text-dark" value="False">False</option>
+      </select>
+      </td>
+
+
+      <td><input value="Create Role" type='submit' name='submit'/></td>
+    </form></div>
+
+    </tr>
+
+    </table>
+
+
+
+</center>
+{% endblock %}

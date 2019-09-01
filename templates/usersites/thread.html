@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+</style>
+
+<div class="text-center">
+
+
+
+
+<h3>
+{% for x in board %}
+Topic: {{x[2]}}
+{%endfor%}
+
+
+{% if message is defined %}
+<p class="bg-danger" style="color:black;">{{message}}</p>
+{% endif %}
+
+
+</h3>
+<div class="grid-container-thread">
+  {%for x in data%}
+
+  <div class="grid-item-post">User: {{x[5]}}</div>
+  <div class="grid-item-post">{{x[3]}}</div>
+  <div class="grid-item-post">Posted: {{x[7]}}</div>
+
+  {%endfor%}
+</div>
+
+<!--   <div class="grid-item">Feedback</div>
+  <div class="grid-item">0</div>
+  <div class="grid-item">-</div>
+-->
+
+ {% if current_user.is_authenticated %}
+<div class="text-center">
+<form class="admin text-center" action='#' Method="POST"><br><br><br>
+
+    <div class="form-group">
+      <label for="postbody">Post Reply: </label>
+      <textarea class="form-control" name="postreply" rows="3" required></textarea>
+      <input type="hidden" id="username" name="username" value="{{current_user.id}}">
+      <input type="hidden" id="unId" name="unId" value="{{current_user.uniqueid}}">
+      <input type="hidden" id="unHa" name="unHa" value="{{current_user.uniqueidhash}}">
+
+
+    </div>
+<button type="submit" class="button">Submit</button>
+
+</form></div>
+
+</div>
+
+{% endif %}
+
+
+</div>
+{% endblock %}

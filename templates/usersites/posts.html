@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<style>
+</style>
+
+<div class="text-center">
+
+
+<h3>
+{% for x in board %}
+{{x[2]}}
+{%endfor%}
+
+{% if message is defined %}
+<p class="bg-danger" style="color:black;">{{message}}</p>
+{% endif %}
+
+</h3>
+ <div class="grid-container">
+  <div class="grid-head">Message area</div>
+<!--  <div class="grid-head"># of posts</div>
+--><div class="grid-head">Last updated</div>
+
+  {%for x in data%}
+  <div class="grid-item"><a class=link href="/thread/{{x[0]}}">{{x[2]}}</a></div>
+<!--  <div class="grid-item">0</div>
+--><div class="grid-item">{{x[6]}}</div>
+  {%endfor%}
+
+
+
+<!--   <div class="grid-item">Feedback</div>
+  <div class="grid-item">0</div>
+  <div class="grid-item">-</div>
+-->
+</div>
+     {% if current_user.is_authenticated %}
+<div class="text-center">
+<form class="admin text-center" action='#' Method="POST"><br><br><br>
+
+    <div class="form-group">
+      <label for="postsubject">Post Subject: </label>
+      <input type="text" class="form-control" name="postsubject" placeholder="" required>
+    </div>
+    <div class="form-group">
+      <label for="postbody">Post Body: </label>
+      <textarea class="form-control" name="postbody" rows="3" required></textarea>
+        <input type="hidden" id="username" name="username" value="{{current_user.id}}">
+        <input type="hidden" id="unId" name="unId" value="{{current_user.uniqueid}}">
+        <input type="hidden" id="unHa" name="unHa" value="{{current_user.uniqueidhash}}">
+
+    </div>
+<button type="submit" class="button">Submit</button>
+
+</form></div>
+     {% endif %}
+
+</div>
+
+
+{% endblock %}

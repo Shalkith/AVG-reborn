@@ -73,6 +73,10 @@ def create(username,url,desc,sitename):
             userid = x[0]
         createsite = 'insert into sites values(0,"'+url+'","'+sitename+'","'+desc+'","'+str(userid)+'")'
         createboard = 'insert into posts values(0,"'+url+'","'+sitename+'","'+desc+'","0","NULL","NULL","NULL","board")'
+        createadminrole = "insert into siteroles (rolename,is_admin,active,url,sort) values ('Site Admin','True','True',"+url+",0)"
+        createuserole = "insert into siteroles (rolename,is_admin,active,url,sort) values ('User','False','True',"+url+",10)"
+
+
 
         cursor.execute(createsite)
         cursor.execute(createboard)

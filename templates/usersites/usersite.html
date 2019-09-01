@@ -5,15 +5,14 @@
 <style>
 </style>
 
-Hello, {{current_user.id}}<br>
 
-{% if siteadmin|string() == current_user.uniqueid|string()%}
-You are the Site Admin
-{% else %}
-You are not the Site Admin
-{% endif %}
 
 <h3>Welcome to {{sitename}}</h3><br>
+{{admin}}
+{%if admin == True%}
+
+{% endif %}
+
 {{sitedesc}}<br><br>
 
 This part of the project is still a work in progress and an admin section will be created soon!

@@ -10,15 +10,22 @@
    </div>
    <div class="collapse navbar-collapse" id="myNavbar">
      <ul class="nav navbar-nav">
-       <li><a href="/home">Home</a></li>
+       <li><a href="/home">AG-Main Page</a></li>
        <!-- <li><a href="anotherurl">url2</a></li> -->
        <li><a href="/about">About me</a></li>
-       <li><a href="/directory">Site Directory</a></li>
+       <li><a href="/directory">User Site Directory</a></li>
 
      </ul>
      <ul class="nav navbar-nav navbar-right">
       {% if current_user.is_authenticated %}
-      <li><a href="/{{current_user.parentsite}}"><span class=""></span>My Site</a></li>
+      {% include 'usersites/accesscheck.html' %}
+      <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Sites
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href=/{{current_user.parentsite}}>My Site</a><br></li>
+              </ul>
+            </li>
 
         <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Signout {{ current_user.id }}</a></li>
       {% else %}

@@ -2,6 +2,59 @@ from hashlib import sha1
 from scripts import creds
 
 
+def create_role(sort,rolename,isadmin,isactive,url):
+    import mysql.connector
+    u = creds.mysqlun # MySQL username
+    p = creds.mysqlpw # MySQL password
+    h = creds.mysqlhost # MySQL server
+    db = 'avidgamers' # MySQL datanase name
+    cnx = mysql.connector.connect(user=u, password=p,host=h,database=db)
+    cursor = cnx.cursor(buffered=True)
+    query = ("select rolename from siteroles where url = '"+url+"'")
+    cursor.execute(query)
+    roles = []
+    existingrole = False
+    import re
+    for x in cursor:
+        roles.append(x)
+    for x in roles:
+        print(re.escape(rolename))
+        print(re.escape(x[0]))
+        if rolename in re.escape(x[0]):
+            existingrole = True
+
+    if existingrole == True:
+        query = ("update siteroles set rolename='"+rolename+"',is_admin='"+isadmin+"',active='"+isactive+"', sort='"+sort+"' where url = '"+url+"' and rolename = '"+rolename+"'")
+        print(query)
+    else:
+        query = ("insert into siteroles (rolename,is_admin,active,sort,url) values('"+rolename+"','"+isadmin+"','"+isactive+"','"+sort+"','"+url+"')")
+        print(query)
+
+    cursor.execute(query)
+    cnx.commit()
+
+
+
+def lookup_roles(url):
+    import mysql.connector
+    u = creds.mysqlun # MySQL username
+    p = creds.mysqlpw # MySQL password
+    h = creds.mysqlhost # MySQL server
+    db = 'avidgamers' # MySQL datanase name
+    cnx = mysql.connector.connect(user=u, password=p,host=h,database=db)
+    cursor = cnx.cursor(buffered=True)
+    query = ("select * from siteroles where url = '"+url+"' order by sort")
+    cursor.execute(query)
+    validuser  = False
+    roles = []
+    for x in cursor:
+        roles.append(x)
+    return roles
+
+
+
+
+
 def confirm_poster(username,hashid,unid):
     import mysql.connector
     u = creds.mysqlun # MySQL username
