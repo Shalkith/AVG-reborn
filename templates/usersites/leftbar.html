@@ -1,0 +1,40 @@
+<div class="text-center">
+<table border=0 class="floatleft">
+
+<tr>
+  <th>Message Boards</th>
+</tr>
+  {%for x in data%}
+<tr>
+  <td><a class="link" href="{{sn}}/posts/{{x[0]}}">{{x[2]}}</a></td>
+</tr>
+  {%endfor%}
+<tr>
+  <th class="">Links</th>
+</tr>
+<tr>
+  <td class=""><a href=/{{sn}}/manageusers>link1</a></td>
+</tr>
+<tr>
+  <td class=""><a href=/{{sn}}/manageusers>link2</a></td>
+</tr>
+
+  {% if siteadmin|string() == current_user.uniqueid|string()%}
+  {% set admin = True %}
+  <th class="">Admin Area</th>
+<tr>
+  <td class=""><a href=/{{sn}}/manageusers>[Manage Users]</a></td>
+</tr>
+<tr>
+  <td class=""><a href=/{{sn}}/manageroles>[Manage Roles]</a></td>
+</tr>
+<tr>
+  <td class=""><a href=/{{sn}}/manageboards>[Manage Boards]</a></td>
+</tr>
+  {% else %}
+  {% set admin = False %}
+  {% endif %}
+
+
+</table>
+</div>

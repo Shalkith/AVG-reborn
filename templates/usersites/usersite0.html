@@ -1,0 +1,31 @@
+{% extends 'usersites/layout.html' %}
+
+{% block body %}
+
+<style>
+</style>
+
+<title>
+  {{sitename}}
+</title>
+
+<div class="text-center">
+<h3>Welcome to {{sitename}}</h3><br>
+</div>
+{%if admin == True%}
+
+{% endif %}
+
+<br><br>
+
+<div class="text-center">
+{% include 'usersites/leftbar.html' %}
+ <table border=1 class="floatright">
+  <th><div class="text-center">{{sitedesc}}</div></th>
+
+</table>
+
+
+
+</div>
+{% endblock %}

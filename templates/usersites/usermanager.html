@@ -1,6 +1,9 @@
-{% extends 'layout.html' %}
-{% block body %}
+{% extends 'usersites/layout.html' %}
 
+{% block body %}
+{% if current_user.is_authenticated %}
+{% if siteadmin|string() == current_user.uniqueid|string()%}
+{% set admin = True %}
 
 <center>
 <table border=1>
@@ -60,4 +63,14 @@
 
 
 </center>
+
+
+
+
+{% else %}
+{% set admin = False %}
+{% set message = "You're not authorized to manage this page" %}
+{% endif %}
+{% endif %}
+
 {% endblock %}

@@ -1,25 +1,26 @@
-{% extends 'layout.html' %}
+{% extends 'usersites/layout.html' %}
 
 {% block body %}
 
 <style>
 </style>
 
+<title>
+  {{sitename}}
+</title>
 
 
 <h3>Welcome to {{sitename}}</h3><br>
-{{admin}}
+
 {%if admin == True%}
 
 {% endif %}
 
 {{sitedesc}}<br><br>
 
-This part of the project is still a work in progress and an admin section will be created soon!
-
 <div class="text-center">
 
- <div class="grid-container-main">
+ <div class="grid-container-main item1">
   <div class="grid-head">Message area</div>
   {%for x in data%}
   <div class="grid-item"><a class="link" href="{{sn}}/posts/{{x[0]}}">{{x[2]}}</a><br><p class="grid-subtext">{{x[3]}}</p></div>

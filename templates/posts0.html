@@ -1,4 +1,4 @@
-{% extends 'usersites/layout.html' %}
+{% extends 'layout.html' %}
 
 {% block body %}
 
@@ -6,7 +6,6 @@
 </style>
 
 <div class="text-center">
-  {% include 'usersites/leftbar.html' %}
 
 
 <h3>
@@ -19,34 +18,25 @@
 {% endif %}
 
 </h3>
-<table border=1 class="floatright">
-  <tr>
-      <th class=""><div class="grid-item">Message area</div></th>
+ <div class="grid-container">
+  <div class="grid-head">Message area</div>
+<!--  <div class="grid-head"># of posts</div>
+--><div class="grid-head">Last updated</div>
 
-      <th class=""><div class="grid-item">Last updated</div></th>
-
-  </tr>
   {%for x in data%}
-  <tr>
-    <td>
-  <div class="grid-item"><a class=link href="/{{sn}}/thread/{{x[0]}}">{{x[2]}}</a></div>
-</td>
-<td>
-  <div class="grid-item">{{x[6]}}</div>
-</td>
-</tr>
+  <div class="grid-item"><a class=link href="/thread/{{x[0]}}">{{x[2]}}</a></div>
+<!--  <div class="grid-item">0</div>
+--><div class="grid-item">{{x[6]}}</div>
   {%endfor%}
 
-</table>
+
 
 <!--   <div class="grid-item">Feedback</div>
   <div class="grid-item">0</div>
   <div class="grid-item">-</div>
 -->
-
+</div>
      {% if current_user.is_authenticated %}
-     <table class="floatright">
-<tr><td>
 <div class="text-center">
 <form class="admin text-center" action='#' Method="POST"><br><br><br>
 
@@ -67,8 +57,6 @@
 </form></div>
      {% endif %}
 
-</td></tr></table>
-</div>
 </div>
 
 

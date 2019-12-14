@@ -216,13 +216,15 @@ def site(variable1):
     var = dbcheck('select * from posts where parentsite="'+variable1+'" and parentthread="0"')
 
     if validuser == True:
-        return render_template('usersites/usersite.html',sitename=name,sitedesc=desc,siteadmin=admin,sn=variable1,data=var)
+        return render_template('usersites/usersite0.html',sitename=name,sitedesc=desc,siteadmin=admin,sn=variable1,data=var)
     else:
         return '<link rel="stylesheet" href="/static/css/avg.css">Invalid site. <br>Please <a href="https://twitter.com/avidgamers"><font color="light blue">contact me on Twitter</font></a> if you think this is in error<br><br><a class="button" href="/">Return Home</a>'
 
 @app.route('/<variable1>/posts/<variable>', methods=['GET','POST'])
 def siteposts(variable1,variable):
     if request.method == 'POST':
+        validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable1)
+
         postdata = request.values
         postdata = postdata.to_dict()
         now = str(datetime.now()).split('.')[0][:-3]
@@ -239,20 +241,21 @@ def siteposts(variable1,variable):
             posts = dbcheck('select * from posts where parentsite="'+variable1+'" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
             print(posts)
             #do your code here
-            return render_template("usersites/posts.html",data=posts, board=board,sn=variable1)
+            return render_template("usersites/posts.html",data=posts, board=board,sn=variable1,siteadmin=admin)
         else:
             board = dbcheck('select * from posts where parentsite ="'+variable1+'" and id="'+variable+'"')
             posts = dbcheck('select * from posts where parentsite="'+variable1+'" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
 
-            return render_template("usersites/posts.html",data=posts, board=board,sn=variable1, message = 'somthing went wrong. please try again...')
+            return render_template("usersites/posts.html",data=posts, board=board,sn=variable1, message = 'somthing went wrong. please try again...',siteadmin=admin)
 
     else:
+        validuser,id,url,name,desc,admin = sitelookup.confirm_site(variable1)
 
         board = dbcheck('select * from posts where parentsite ="'+variable1+'" and id="'+variable+'"')
         posts = dbcheck('select * from posts where parentsite="'+variable1+'" and (type = "post" and parentthread="'+variable+'") order by lastupdate desc')
         print(posts)
         #do your code here
-        return render_template("usersites/posts.html",data=posts, board=board,sn=variable1)
+        return render_template("usersites/posts.html",data=posts, board=board,sn=variable1,siteadmin=admin)
 
 @app.route('/<variable1>/thread/<variable>', methods=['GET','POST'])
 def sitethread(variable1,variable):
